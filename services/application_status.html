@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>WEO Portal - Hali ya Maombi</title>
-    <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         /* Custom font for Inter */
@@ -15,24 +14,29 @@
     </style>
 </head>
 <body class="bg-gray-100 min-h-screen flex flex-col">
-    <!-- Header -->
+    <script>
+        // Check if the user is logged in
+        if (sessionStorage.getItem('isLoggedIn') !== 'true') {
+            // If not logged in, redirect to the login page
+            window.location.href = '../login.html'; // Adjust path if login.html is in a different directory
+        }
+    </script>
     <header class="bg-blue-700 text-white p-4 shadow-md">
         <div class="container mx-auto flex justify-between items-center">
             <h1 class="text-2xl font-bold">WEO Portal</h1>
-            <div class="text-right">
+            <div class="text-right flex items-center space-x-4">
                 <p class="text-sm">Karibu, <span id="userName" class="font-semibold">Mtumiaji</span>!</p>
                 <p class="text-xs" id="currentDateTime"></p>
+                <button id="logoutButton" class="bg-blue-600 hover:bg-blue-700 text-white text-xs px-3 py-1 rounded-md">Ondoka</button>
             </div>
         </div>
     </header>
 
-    <!-- Main Content -->
     <main class="flex-grow container mx-auto p-4">
         <div class="bg-white p-8 rounded-lg shadow-xl w-full max-w-4xl mx-auto">
             <h2 class="text-2xl font-bold text-gray-800 mb-6 text-center">Hali ya Maombi</h2>
             <p class="text-gray-700 text-center mb-8">Fuatilia hali ya maombi yako yote yaliyowasilishwa hapa.</p>
 
-            <!-- Search Bar -->
             <div class="mb-6">
                 <input
                     type="text"
@@ -42,7 +46,6 @@
                 />
             </div>
 
-            <!-- Application Table -->
             <div class="overflow-x-auto">
                 <table class="min-w-full bg-white rounded-lg shadow-md">
                     <thead>
@@ -56,7 +59,6 @@
                         </tr>
                     </thead>
                     <tbody id="applicationTableBody" class="text-gray-700 text-sm font-light">
-                        <!-- Sample Data - In a real app, this would be loaded dynamically -->
                         <tr class="border-b border-gray-200 hover:bg-gray-100">
                             <td class="py-3 px-6 text-left whitespace-nowrap">APP-001</td>
                             <td class="py-3 px-6 text-left">Utambulisho Online</td>
@@ -113,15 +115,13 @@
                                 <button class="bg-purple-500 text-white py-1 px-3 rounded-md text-xs hover:bg-purple-600 pay-application-btn ml-2">Lipa</button>
                             </td>
                         </tr>
-                        <!-- More rows can be added here -->
-                    </tbody>
+                        </tbody>
                 </table>
             </div>
         </div>
     </main>
 
-<!-- Footer -->
-    <footer class="bg-blue-800 text-white p-4 mt-8">
+<footer class="bg-blue-800 text-white p-4 mt-8">
         <div class="container mx-auto flex justify-around items-center text-center">
             <a href="../index.html" class="flex flex-col items-center p-2 rounded-md hover:bg-blue-700 transition duration-200">
                 <span class="text-2xl">🏠</span>
@@ -158,7 +158,8 @@
         updateDateTime();
 
         // You can set the username dynamically here after a real login
-        document.getElementById('userName').textContent = 'David'; // Example name
+        const loggedInUser = sessionStorage.getItem('loggedInUser'); // Get username from session storage
+        document.getElementById('userName').textContent = loggedInUser ? loggedInUser : 'Mtumiaji'; // Example name
 
         // Search functionality for the table
         document.getElementById('applicationSearch').addEventListener('keyup', function() {
@@ -201,6 +202,13 @@
                     // window.location.href = `payment_page.html?id=${appId}`;
                 }
             }
+        });
+
+        // Logout button functionality
+        document.getElementById('logoutButton').addEventListener('click', function() {
+            sessionStorage.removeItem('isLoggedIn'); // Clear the login flag
+            sessionStorage.removeItem('loggedInUser'); // Clear the username
+            window.location.href = '../login.html'; // Redirect to login page. Adjust path based on your directory structure.
         });
     </script>
 </body>
