@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="sw">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WEO Portal - Jitambulishe na Makazi</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Custom font for Inter */
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+    </style>
+</head>
+<body class="bg-gray-100 min-h-screen flex flex-col">
+    <!-- Header -->
+    <header class="bg-blue-700 text-white p-4 shadow-md">
+        <div class="container mx-auto flex justify-between items-center">
+            <h1 class="text-2xl font-bold">WEO Portal</h1>
+            <div class="text-right">
+                <p class="text-sm">Karibu, <span id="userName" class="font-semibold">Mtumiaji</span>!</p>
+                <p class="text-xs" id="currentDateTime"></p>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="flex-grow container mx-auto p-4">
+        <div class="bg-white p-8 rounded-lg shadow-xl w-full max-w-2xl mx-auto">
+            <h2 class="text-2xl font-bold text-gray-800 mb-6 text-center">Fomu ya Jitambulishe na Makazi</h2>
+            <p class="text-gray-700 text-center mb-8">Tafadhali jaza fomu ifuatayo kusajili makazi yako.</p>
+
+            <form>
+                <!-- Taarifa za Mwombaji -->
+                <h3 class="text-xl font-semibold text-gray-800 mb-4 border-b pb-2">Taarifa za Mwombaji</h3>
+                <div class="mb-4">
+                    <label for="fullName" class="block text-gray-700 text-sm font-semibold mb-2">Jina Kamili*</label>
+                    <input
+                        type="text"
+                        id="fullName"
+                        name="fullName"
+                        class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        placeholder="Ingiza jina lako kamili"
+                        required
+                    />
+                </div>
+
+                <div class="mb-4">
+                    <label for="nidaNumber" class="block text-gray-700 text-sm font-semibold mb-2">Namba ya NIDA</label>
+                    <input
+                        type="text"
+                        id="nidaNumber"
+                        name="nidaNumber"
+                        class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        placeholder="Ingiza Namba yako ya NIDA"
+                    />
+                </div>
+
+                <div class="mb-4">
+                    <label for="contactNumber" class="block text-gray-700 text-sm font-semibold mb-2">Namba ya Simu*</label>
+                    <input
+                        type="tel"
+                        id="contactNumber"
+                        name="contactNumber"
+                        class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        placeholder="Mfano: +2557XXXXXXXX"
+                        required
+                    />
+                </div>
+
+                <div class="mb-6">
+                    <label for="email" class="block text-gray-700 text-sm font-semibold mb-2">Barua Pepe</label>
+                    <input
+                        type="email"
+                        id="email"
+                        name="email"
+                        class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        placeholder="Ingiza barua pepe yako"
+                    />
+                </div>
+
+                <!-- Makazi ya Mwombaji -->
+                <h3 class="text-xl font-semibold text-gray-800 mb-4 border-b pb-2">Makazi ya Mwombaji</h3>
+                <div class="mb-4">
+                    <label for="district" class="block text-gray-700 text-sm font-semibold mb-2">Wilaya*</label>
+                    <select
+                        id="district"
+                        name="district"
+                        class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        required
+                    >
+                        <option value="">-- Chagua Wilaya --</option>
+                        <option value="Ilala">Ilala</option>
+                        <option value="Kinondoni">Kinondoni</option>
+                        <option value="Temeke">Temeke</option>
+                        <option value="Kigamboni">Kigamboni</option>
+                        <option value="Ubungo">Ubungo</option>
+                    </select>
+                </div>
+
+                <div class="mb-4">
+                    <label for="ward" class="block text-gray-700 text-sm font-semibold mb-2">Kata*</label>
+                    <select
+                        id="ward"
+                        name="ward"
+                        class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        required
+                    >
+                        <option value="">-- Chagua Wilaya Kwanza --</option>
+                        <!-- Options will be dynamically loaded based on district selection in a real app -->
+                    </select>
+                </div>
+
+                <div class="mb-6">
+                    <label for="street" class="block text-gray-700 text-sm font-semibold mb-2">Mtaa*</label>
+                    <input
+                        type="text"
+                        id="street"
+                        name="street"
+                        class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        placeholder="Ingiza jina la mtaa"
+                        required
+                    />
+                </div>
+
+                <!-- Madhumuni ya Usajili -->
+                <h3 class="text-xl font-semibold text-gray-800 mb-4 border-b pb-2">Madhumuni ya Usajili</h3>
+                <div class="mb-6">
+                    <label for="registrationPurpose" class="block text-gray-700 text-sm font-semibold mb-2">Aina ya Usajili*</label>
+                    <select
+                        id="registrationPurpose"
+                        name="registrationPurpose"
+                        class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        required
+                    >
+                        <option value="">-- Chagua --</option>
+                        <option value="business_setup">Kuanzisha Biashara</option>
+                        <option value="school_registration">Usajili wa Shule</option>
+                        <option value="immigration">Uhamiaji</option>
+                        <option value="other">Mengineyo</option>
+                    </select>
+                </div>
+
+                <div class="flex justify-between space-x-4">
+                    <button
+                        type="reset"
+                        class="w-1/2 bg-red-600 text-white py-3 rounded-md font-semibold hover:bg-red-700 transition duration-300 ease-in-out shadow-lg"
+                    >
+                        Ghairi
+                    </button>
+                    <button
+                        type="submit"
+                        class="w-1/2 bg-blue-700 text-white py-3 rounded-md font-semibold hover:bg-blue-800 transition duration-300 ease-in-out shadow-lg"
+                    >
+                        Wasilisha
+                    </button>
+                </div>
+            </form>
+        </div>
+    </main>
+
+<!-- Footer -->
+    <footer class="bg-blue-800 text-white p-4 mt-8">
+        <div class="container mx-auto flex justify-around items-center text-center">
+            <a href="../index.html" class="flex flex-col items-center p-2 rounded-md hover:bg-blue-700 transition duration-200">
+                <span class="text-2xl">🏠</span>
+                <span class="text-xs">Home</span>
+            </a>
+            <a href="../settings.html" class="flex flex-col items-center p-2 rounded-md hover:bg-blue-700 transition duration-200">
+                <span class="text-2xl">⚙️</span>
+                <span class="text-xs">Settings</span>
+            </a>
+            <a href="../profile.html" class="flex flex-col items-center p-2 rounded-md hover:bg-blue-700 transition duration-200">
+                <span class="text-2xl">👤</span>
+                <span class="text-xs">Profile</span>
+            </a>
+            <a href="info_and_payments.html" class="flex flex-col items-center p-2 rounded-md hover:bg-blue-700 transition duration-200">
+                <span class="text-2xl">❓</span>
+                <span class="text-xs">Help</span>
+            </a>
+        </div>
+    </footer>
+
+
+
+    <script>
+        // Function to update date and time
+        function updateDateTime() {
+            const now = new Date();
+            const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit', second: '2-digit' };
+            document.getElementById('currentDateTime').textContent = now.toLocaleDateString('sw-TZ', options);
+        }
+
+        // Update date and time every second
+        setInterval(updateDateTime, 1000);
+        // Initial call to display immediately
+        updateDateTime();
+
+        // You can set the username dynamically here after a real login
+        document.getElementById('userName').textContent = 'David'; // Example name
+
+        // Dynamic content for Kata based on Wilaya selection (placeholder for static HTML)
+        const districtSelect = document.getElementById('district');
+        const wardSelect = document.getElementById('ward');
+
+        districtSelect.addEventListener('change', function() {
+            const selectedDistrict = districtSelect.value;
+            wardSelect.innerHTML = '<option value="">-- Chagua Wilaya Kwanza --</option>'; // Reset wards
+
+            if (selectedDistrict === 'Ilala') {
+                wardSelect.innerHTML += '<option value="Kivukoni">Kivukoni</option>';
+                wardSelect.innerHTML += '<option value="Upanga Mashariki">Upanga Mashariki</option>';
+                // Add more wards for Ilala
+            } else if (selectedDistrict === 'Kinondoni') {
+                wardSelect.innerHTML += '<option value="Kinondoni">Kinondoni</option>';
+                wardSelect.innerHTML += '<option value="Msasani">Msasani</option>';
+                // Add more wards for Kinondoni
+            }
+            // Add more conditions for other districts
+        });
+    </script>
+</body>
+</html>

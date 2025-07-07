@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="sw">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WEO Portal - Toa Taarifa</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Custom font for Inter */
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+    </style>
+</head>
+<body class="bg-gray-100 min-h-screen flex flex-col">
+    <!-- Header -->
+    <header class="bg-blue-700 text-white p-4 shadow-md">
+        <div class="container mx-auto flex justify-between items-center">
+            <h1 class="text-2xl font-bold">WEO Portal</h1>
+            <div class="text-right">
+                <p class="text-sm">Karibu, <span id="userName" class="font-semibold">Mtumiaji</span>!</p>
+                <p class="text-xs" id="currentDateTime"></p>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="flex-grow container mx-auto p-4">
+        <div class="bg-white p-8 rounded-lg shadow-xl w-full max-w-2xl mx-auto">
+            <h2 class="text-2xl font-bold text-gray-800 mb-6 text-center">Toa Taarifa</h2>
+            <p class="text-gray-700 text-center mb-8">Tumia sehemu hii kujitambulisha kwa jamii na kata/mtaa wako, pamoja na kutoa maelezo ya makazi yako.</p>
+
+            <form id="reportForm">
+                <h3 class="text-xl font-semibold text-gray-800 mb-4 border-b pb-2">Fomu ya Kutoa Taarifa</h3>
+
+                <!-- Aina ya Taarifa -->
+                <div class="mb-4">
+                    <label for="reportType" class="block text-gray-700 text-sm font-semibold mb-2">Aina ya Taarifa*</label>
+                    <select
+                        id="reportType"
+                        name="reportType"
+                        class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        required
+                    >
+                        <option value="">-- Chagua --</option>
+                        <option value="complaint">Malalamiko</option>
+                        <option value="event_notification">Arifa ya Tukio</option>
+                        <option value="assistance_request">Maombi ya Usaidizi</option>
+                        <option value="other">Nyingine</option>
+                    </select>
+                </div>
+
+                <!-- Ficha Utambulisho? -->
+                <div class="mb-6">
+                    <label class="block text-gray-700 text-sm font-semibold mb-2">Ficha Utambulisho?*</label>
+                    <div class="flex items-center space-x-4">
+                        <input type="radio" id="hideIdentityNo" name="hideIdentity" value="no" class="form-radio h-4 w-4 text-blue-600" checked>
+                        <label for="hideIdentityNo" class="text-gray-700">Hapana</label>
+                        <input type="radio" id="hideIdentityYes" name="hideIdentity" value="yes" class="form-radio h-4 w-4 text-blue-600 ml-4">
+                        <label for="hideIdentityYes" class="text-gray-700">Ndiyo</label>
+                    </div>
+                </div>
+
+                <!-- Mtoa Taarifa na Eneo -->
+                <h4 class="text-lg font-semibold text-gray-700 mb-3 mt-6">Mtoa Taarifa na Eneo</h4>
+                <div class="mb-4">
+                    <label for="nidaNumber" class="block text-gray-700 text-sm font-semibold mb-2">Namba ya NIDA</label>
+                    <input
+                        type="text"
+                        id="nidaNumber"
+                        name="nidaNumber"
+                        class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        placeholder="Ingiza Namba yako ya NIDA"
+                    />
+                </div>
+
+                <div class="mb-4">
+                    <label for="reporterName" class="block text-gray-700 text-sm font-semibold mb-2">Jina la Mtoa Taarifa</label>
+                    <input
+                        type="text"
+                        id="reporterName"
+                        name="reporterName"
+                        class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        placeholder="Ingiza jina la mtoa taarifa"
+                    />
+                </div>
+
+                <div class="mb-6">
+                    <label for="reporterStreet" class="block text-gray-700 text-sm font-semibold mb-2">Jina la Mtaa/Kijiji/Kitongoji*</label>
+                    <input
+                        type="text"
+                        id="reporterStreet"
+                        name="reporterStreet"
+                        class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        placeholder="Ingiza jina la mtaa/kijiji/kitongoji"
+                        required
+                    />
+                </div>
+
+                <!-- Muda na Aina ya Tukio -->
+                <h4 class="text-lg font-semibold text-gray-700 mb-3 mt-6">Muda na Aina ya Tukio</h4>
+                <div class="mb-4">
+                    <label for="eventDate" class="block text-gray-700 text-sm font-semibold mb-2">Tarehe ya Tukio*</label>
+                    <input
+                        type="date"
+                        id="eventDate"
+                        name="eventDate"
+                        class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        required
+                    />
+                </div>
+
+                <div class="mb-4">
+                    <label for="eventTime" class="block text-gray-700 text-sm font-semibold mb-2">Muda wa Tukio</label>
+                    <input
+                        type="time"
+                        id="eventTime"
+                        name="eventTime"
+                        class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    />
+                </div>
+
+                <div class="mb-6">
+                    <label for="eventType" class="block text-gray-700 text-sm font-semibold mb-2">Aina ya Tukio*</label>
+                    <select
+                        id="eventType"
+                        name="eventType"
+                        class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        required
+                    >
+                        <option value="">-- Chagua --</option>
+                        <option value="crime">Uhalifu</option>
+                        <option value="accident">Ajali</option>
+                        <option value="natural_disaster">Maafa ya Asili</option>
+                        <option value="infrastructure">Miundombinu</option>
+                        <option value="other">Nyingine</option>
+                    </select>
+                </div>
+
+                <!-- Maelezo ya Kina -->
+                <div class="mb-6">
+                    <label for="detailedDescription" class="block text-gray-700 text-sm font-semibold mb-2">Maelezo ya Kina*</label>
+                    <textarea
+                        id="detailedDescription"
+                        name="detailedDescription"
+                        rows="5"
+                        class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        placeholder="Andika maelezo ya kina kuhusu taarifa yako"
+                        required
+                    ></textarea>
+                </div>
+
+                <!-- Ushahidi na Upelekaji -->
+                <h4 class="text-lg font-semibold text-gray-700 mb-3 mt-6">Ushahidi na Upelekaji</h4>
+                <div class="mb-4">
+                    <label for="evidenceUpload" class="block text-gray-700 text-sm font-semibold mb-2">Pakia Ushahidi (Picha/Video)</label>
+                    <input
+                        type="file"
+                        id="evidenceUpload"
+                        name="evidenceUpload"
+                        accept="image/*,video/*"
+                        class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    />
+                </div>
+
+                <div class="mb-6">
+                    <label for="department" class="block text-gray-700 text-sm font-semibold mb-2">Peleka kwa Idara Gani?*</label>
+                    <select
+                        id="department"
+                        name="department"
+                        class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        required
+                    >
+                        <option value="">-- Chagua Idara --</option>
+                        <option value="kata_office">Ofisi ya Kata</option>
+                        <option value="police">Jeshi la Polisi</option>
+                        <option value="health_department">Idara ya Afya</option>
+                        <option value="fire_rescue">Zimamoto na Uokoaji</option>
+                        <option value="tanesco">TANESCO</option>
+                        <option value="dawasa_ruwasa">DAWASA/RUWASA</option>
+                        <option value="tarura">TARURA</option>
+                        <option value="social_welfare">Idara ya Ustawi wa Jamii</option>
+                    </select>
+                </div>
+
+                <div class="flex justify-between space-x-4 mt-6">
+                    <button
+                        type="reset"
+                        class="w-1/2 bg-red-600 text-white py-3 rounded-md font-semibold hover:bg-red-700 transition duration-300 ease-in-out shadow-lg"
+                    >
+                        Ghairi
+                    </button>
+                    <button
+                        type="submit"
+                        class="w-1/2 bg-blue-700 text-white py-3 rounded-md font-semibold hover:bg-blue-800 transition duration-300 ease-in-out shadow-lg"
+                    >
+                        Wasilisha Taarifa
+                    </button>
+                </div>
+            </form>
+        </div>
+    </main>
+
+<!-- Footer -->
+    <footer class="bg-blue-800 text-white p-4 mt-8">
+        <div class="container mx-auto flex justify-around items-center text-center">
+            <a href="../index.html" class="flex flex-col items-center p-2 rounded-md hover:bg-blue-700 transition duration-200">
+                <span class="text-2xl">🏠</span>
+                <span class="text-xs">Home</span>
+            </a>
+            <a href="../settings.html" class="flex flex-col items-center p-2 rounded-md hover:bg-blue-700 transition duration-200">
+                <span class="text-2xl">⚙️</span>
+                <span class="text-xs">Settings</span>
+            </a>
+            <a href="../profile.html" class="flex flex-col items-center p-2 rounded-md hover:bg-blue-700 transition duration-200">
+                <span class="text-2xl">👤</span>
+                <span class="text-xs">Profile</span>
+            </a>
+            <a href="info_and_payments.html" class="flex flex-col items-center p-2 rounded-md hover:bg-blue-700 transition duration-200">
+                <span class="text-2xl">❓</span>
+                <span class="text-xs">Help</span>
+            </a>
+        </div>
+    </footer>
+
+
+
+    <script>
+        // Function to update date and time
+        function updateDateTime() {
+            const now = new Date();
+            const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit', second: '2-digit' };
+            document.getElementById('currentDateTime').textContent = now.toLocaleDateString('sw-TZ', options);
+        }
+
+        // Update date and time every second
+        setInterval(updateDateTime, 1000);
+        // Initial call to display immediately
+        updateDateTime();
+
+        // You can set the username dynamically here after a real login
+        document.getElementById('userName').textContent = 'David'; // Example name
+    </script>
+</body>
+</html>

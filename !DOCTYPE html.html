@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="sw">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WEO Portal - Msaada na Taarifa</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Custom font for Inter */
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+    </style>
+</head>
+<body class="bg-gray-100 min-h-screen flex flex-col">
+    <!-- Header -->
+    <header class="bg-blue-700 text-white p-4 shadow-md">
+        <div class="container mx-auto flex justify-between items-center">
+            <h1 class="text-2xl font-bold">WEO Portal</h1>
+            <div class="text-right">
+                <p class="text-sm">Karibu, <span id="userName" class="font-semibold">Mtumiaji</span>!</p>
+                <p class="text-xs" id="currentDateTime"></p>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="flex-grow container mx-auto p-4">
+        <div class="bg-white p-8 rounded-lg shadow-xl w-full max-w-4xl mx-auto">
+            <h2 class="text-2xl font-bold text-gray-800 mb-6 text-center">Msaada na Taarifa</h2>
+            <p class="text-gray-700 text-center mb-8">Pata majibu ya maswali yako, maelekezo ya malipo, na sasisho muhimu hapa.</p>
+
+            <!-- Maswali Yanayoulizwa Mara kwa Mara (FAQs) -->
+            <div class="mb-8">
+                <h3 class="text-xl font-semibold text-gray-800 mb-4 border-b pb-2">Maswali Yanayoulizwa Mara kwa Mara (FAQs)</h3>
+                <div class="space-y-4">
+                    <div>
+                        <h4 class="font-medium text-gray-700">Q: Ninawezaje kuomba kibali cha ujenzi?</h4>
+                        <p class="text-gray-600 text-sm">A: Nenda kwenye sehemu ya "Vibali Online" na uchague "Kibali cha Ujenzi" kujaza fomu husika.</p>
+                    </div>
+                    <div>
+                        <h4 class="font-medium text-gray-700">Q: Je, ninaweza kufuatilia hali ya maombi yangu?</h4>
+                        <p class="text-gray-600 text-sm">A: Ndiyo, nenda kwenye sehemu ya "Hali ya Maombi" na utumie namba yako ya maombi kutafuta.</p>
+                    </div>
+                    <div>
+                        <h4 class="font-medium text-gray-700">Q: Ada za huduma zinalipwaje?</h4>
+                        <p class="text-gray-600 text-sm">A: Ada zinalipwa kupitia njia mbalimbali kama M-Pesa, Tigo Pesa, Airtel Money, au uhamisho wa benki. Maelezo zaidi yanapatikana hapa chini.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Maelekezo ya Malipo na Ada -->
+            <div class="mb-8">
+                <h3 class="text-xl font-semibold text-gray-800 mb-4 border-b pb-2">Maelekezo ya Malipo na Ada</h3>
+                <p class="text-gray-700 mb-4">Tafadhali rejea jedwali hapa chini kwa ada za huduma zetu mbalimbali. Malipo yanaweza kufanywa kupitia namba zetu za malipo au benki.</p>
+
+                <div class="overflow-x-auto mb-6">
+                    <table class="min-w-full bg-white rounded-lg shadow-md">
+                        <thead>
+                            <tr class="bg-blue-100 text-blue-800 uppercase text-sm leading-normal">
+                                <th class="py-3 px-6 text-left">Huduma</th>
+                                <th class="py-3 px-6 text-left">Ada (TSh)</th>
+                                <th class="py-3 px-6 text-left">Maelezo ya Malipo</th>
+                            </tr>
+                        </thead>
+                        <tbody class="text-gray-700 text-sm font-light">
+                            <tr class="border-b border-gray-200 hover:bg-gray-100">
+                                <td class="py-3 px-6 text-left">Kibali cha Ujenzi</td>
+                                <td class="py-3 px-6 text-left">50,000</td>
+                                <td class="py-3 px-6 text-left">Lipa kupitia namba ya malipo ya simu au benki.</td>
+                            </tr>
+                            <tr class="border-b border-gray-200 hover:bg-gray-100">
+                                <td class="py-3 px-6 text-left">Kibali cha Mazishi</td>
+                                <td class="py-3 px-6 text-left">10,000</td>
+                                <td class="py-3 px-6 text-left">Lipa kupitia namba ya malipo ya simu.</td>
+                            </tr>
+                            <tr class="border-b border-gray-200 hover:bg-gray-100">
+                                <td class="py-3 px-6 text-left">Kibali cha Sherehe</td>
+                                <td class="py-3 px-6 text-left">20,000</td>
+                                <td class="py-3 px-6 text-left">Lipa kupitia namba ya malipo ya simu.</td>
+                            </tr>
+                            <tr class="border-b border-gray-200 hover:bg-gray-100">
+                                <td class="py-3 px-6 text-left">Kibali cha Mikutano</td>
+                                <td class="py-3 px-6 text-left">30,000</td>
+                                <td class="py-3 px-6 text-left">Lipa kupitia namba ya malipo ya simu au benki.</td>
+                            </tr>
+                            <tr class="border-b border-gray-200 hover:bg-gray-100">
+                                <td class="py-3 px-6 text-left">Ufunguzi wa Kesi</td>
+                                <td class="py-3 px-6 text-left">5,000</td>
+                                <td class="py-3 px-6 text-left">Lipa kupitia namba ya malipo ya simu.</td>
+                            </tr>
+                            <!-- Add more services and fees as needed -->
+                        </tbody>
+                    </table>
+                </div>
+
+                <p class="text-gray-700 mb-4">Kwa maelezo zaidi kuhusu namba za malipo au akaunti za benki, tafadhali wasiliana nasi kupitia namba zifuatazo.</p>
+            </div>
+
+            <!-- Sasisho na Matangazo -->
+            <div class="mb-8">
+                <h3 class="text-xl font-semibold text-gray-800 mb-4 border-b pb-2">Sasisho na Matangazo</h3>
+                <div class="space-y-4">
+                    <div>
+                        <h4 class="font-medium text-gray-700">Sasisho la Mfumo: Tarehe 01 Julai, 2024</h4>
+                        <p class="text-gray-600 text-sm">Mfumo umeboreshwa na huduma mpya za kufuatilia maombi zimeongezwa. Tafadhali tembelea ukurasa wa "Hali ya Maombi" kwa taarifa zaidi.</p>
+                    </div>
+                    <div>
+                        <h4 class="font-medium text-gray-700">Tangazo Muhimu: Marekebisho ya Ada za Huduma</h4>
+                        <p class="text-gray-600 text-sm">Kuanzia tarehe 15 Julai, 2024, kutakuwa na marekebisho madogo ya ada za huduma za vibali vya sherehe. Tafadhali rejea jedwali la ada hapo juu.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Mawasiliano -->
+            <div>
+                <h3 class="text-xl font-semibold text-gray-800 mb-4 border-b pb-2">Mawasiliano</h3>
+                <p class="text-gray-700 mb-2">Kwa usaidizi zaidi au maswali, tafadhali wasiliana nasi:</p>
+                <ul class="list-disc list-inside text-gray-600">
+                    <li>Namba ya Simu: +255 7XX XXX XXX</li>
+                    <li>Barua Pepe: info@weoportal.go.tz</li>
+                    <li>Saa za Kazi: Jumatatu - Ijumaa, 8:00 AM - 5:00 PM</li>
+                </ul>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-blue-800 text-white p-4 mt-8">
+        <div class="container mx-auto flex justify-around items-center text-center">
+            <a href="index.html" class="flex flex-col items-center p-2 rounded-md hover:bg-blue-700 transition duration-200">
+                <span class="text-2xl">🏠</span>
+                <span class="text-xs">Nyumbani</span>
+            </a>
+            <a href="WEO_Portal_Settings.html" class="flex flex-col items-center p-2 rounded-md hover:bg-blue-700 transition duration-200">
+                <span class="text-2xl">⚙️</span>
+                <span class="text-xs">Mipangilio</span>
+            </a>
+            <a href="WEO_Portal_Profile.html" class="flex flex-col items-center p-2 rounded-md hover:bg-blue-700 transition duration-200">
+                <span class="text-2xl">👤</span>
+                <span class="text-xs">Wasifu</span>
+            </a>
+            <a href="help.html" class="flex flex-col items-center p-2 rounded-md hover:bg-blue-700 transition duration-200">
+                <span class="text-2xl">❓</span>
+                <span class="text-xs">Msaada</span>
+            </a>
+        </div>
+    </footer>
+
+    <script>
+        // Function to update date and time
+        function updateDateTime() {
+            const now = new Date();
+            const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit', second: '2-digit' };
+            document.getElementById('currentDateTime').textContent = now.toLocaleDateString('sw-TZ', options);
+        }
+
+        // Update date and time every second
+        setInterval(updateDateTime, 1000);
+        // Initial call to display immediately
+        updateDateTime();
+
+        // You can set the username dynamically here after a real login
+        document.getElementById('userName').textContent = 'David'; // Example name
+    </script>
+</body>
+</html>

@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="sw">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WEO Portal - Fungua Kesi</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Custom font for Inter */
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+    </style>
+</head>
+<body class="bg-gray-100 min-h-screen flex flex-col">
+    <!-- Header -->
+    <header class="bg-blue-700 text-white p-4 shadow-md">
+        <div class="container mx-auto flex justify-between items-center">
+            <h1 class="text-2xl font-bold">WEO Portal</h1>
+            <div class="text-right">
+                <p class="text-sm">Karibu, <span id="userName" class="font-semibold">Mtumiaji</span>!</p>
+                <p class="text-xs" id="currentDateTime"></p>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="flex-grow container mx-auto p-4">
+        <div class="bg-white p-8 rounded-lg shadow-xl w-full max-w-2xl mx-auto">
+            <h2 class="text-2xl font-bold text-gray-800 mb-6 text-center">Usimamizi wa Kesi</h2>
+            <p class="text-gray-700 text-center mb-8">Bofya hapa chini kusajili kesi mpya kwenye mfumo.</p>
+
+            <form id="caseRegistrationForm">
+                <h3 class="text-xl font-semibold text-gray-800 mb-4 border-b pb-2">Sajili Kesi Mpya</h3>
+
+                <!-- Taarifa za Mlalamikaji -->
+                <h4 class="text-lg font-semibold text-gray-700 mb-3 mt-6">Taarifa za Mlalamikaji</h4>
+                <div class="mb-4">
+                    <label for="complainantFullName" class="block text-gray-700 text-sm font-semibold mb-2">Jina Kamili*</label>
+                    <input
+                        type="text"
+                        id="complainantFullName"
+                        name="complainantFullName"
+                        class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        placeholder="Ingiza jina kamili la mlalamikaji"
+                        required
+                    />
+                </div>
+                <div class="mb-6">
+                    <label for="complainantContactNumber" class="block text-gray-700 text-sm font-semibold mb-2">Namba ya Simu*</label>
+                    <input
+                        type="tel"
+                        id="complainantContactNumber"
+                        name="complainantContactNumber"
+                        class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        placeholder="Mfano: +2557XXXXXXXX"
+                        required
+                    />
+                </div>
+
+                <!-- Taarifa za Mlalamikiwa -->
+                <h4 class="text-lg font-semibold text-gray-700 mb-3 mt-6">Taarifa za Mlalamikiwa</h4>
+                <div class="mb-6">
+                    <label for="respondentName" class="block text-gray-700 text-sm font-semibold mb-2">Jina la Mlalamikiwa</label>
+                    <input
+                        type="text"
+                        id="respondentName"
+                        name="respondentName"
+                        class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        placeholder="Ingiza jina la mlalamikiwa"
+                    />
+                </div>
+
+                <!-- Eneo la Kesi -->
+                <h4 class="text-lg font-semibold text-gray-700 mb-3 mt-6">Eneo la Kesi</h4>
+                <div class="mb-4">
+                    <label for="caseDistrict" class="block text-gray-700 text-sm font-semibold mb-2">Wilaya*</label>
+                    <select
+                        id="caseDistrict"
+                        name="caseDistrict"
+                        class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        required
+                    >
+                        <option value="">-- Chagua Wilaya --</option>
+                        <option value="Ilala">Ilala</option>
+                        <option value="Kinondoni">Kinondoni</option>
+                        <option value="Temeke">Temeke</option>
+                        <option value="Kigamboni">Kigamboni</option>
+                        <option value="Ubungo">Ubungo</option>
+                    </select>
+                </div>
+
+                <div class="mb-4">
+                    <label for="caseWard" class="block text-gray-700 text-sm font-semibold mb-2">Kata*</label>
+                    <select
+                        id="caseWard"
+                        name="caseWard"
+                        class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        required
+                    >
+                        <option value="">-- Chagua Wilaya Kwanza --</option>
+                        <!-- Options will be dynamically loaded based on district selection -->
+                    </select>
+                </div>
+
+                <div class="mb-6">
+                    <label for="caseStreet" class="block text-gray-700 text-sm font-semibold mb-2">Mtaa*</label>
+                    <input
+                        type="text"
+                        id="caseStreet"
+                        name="caseStreet"
+                        class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        placeholder="Ingiza jina la mtaa"
+                        required
+                    />
+                </div>
+
+                <!-- Maelezo ya Kesi -->
+                <h4 class="text-lg font-semibold text-gray-700 mb-3 mt-6">Maelezo ya Kesi</h4>
+                <div class="mb-4">
+                    <label for="caseType" class="block text-gray-700 text-sm font-semibold mb-2">Aina ya Kesi*</label>
+                    <select
+                        id="caseType"
+                        name="caseType"
+                        class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        required
+                    >
+                        <option value="">-- Chagua Aina --</option>
+                        <option value="land_dispute_minor">Mgogoro wa Ardhi Mdogo</option>
+                        <option value="land_dispute_major">Mgogoro wa Ardhi Mkubwa</option>
+                        <option value="family_issue">Suala la Familia</option>
+                        <option value="business_dispute">Mgogoro wa Kibiashara</option>
+                        <option value="small_claims">Madai Madogo</option>
+                        <option value="property_damage">Uharibifu wa Mali</option>
+                        <option value="other">Nyingineyo</option>
+                    </select>
+                </div>
+
+                <div class="mb-4">
+                    <label for="caseFee" class="block text-gray-700 text-sm font-semibold mb-2">Ada ya Ufunguzi wa Kesi (TSh)</label>
+                    <input
+                        type="text"
+                        id="caseFee"
+                        name="caseFee"
+                        class="w-full px-4 py-2 border border-gray-300 rounded-md bg-gray-100 focus:outline-none"
+                        value="5,000"
+                        readonly
+                    />
+                </div>
+
+                <div class="mb-4">
+                    <label for="caseSubject" class="block text-gray-700 text-sm font-semibold mb-2">Mada / Kichwa cha Kesi</label>
+                    <input
+                        type="text"
+                        id="caseSubject"
+                        name="caseSubject"
+                        class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        placeholder="Ingiza mada au kichwa cha kesi"
+                    />
+                </div>
+
+                <div class="mb-6">
+                    <label for="caseDescription" class="block text-gray-700 text-sm font-semibold mb-2">Maelezo ya Kina*</label>
+                    <textarea
+                        id="caseDescription"
+                        name="caseDescription"
+                        rows="5"
+                        class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        placeholder="Andika maelezo ya kina kuhusu kesi"
+                        required
+                    ></textarea>
+                </div>
+
+                <!-- Viambatisho vya Ushahidi -->
+                <h4 class="text-lg font-semibold text-gray-700 mb-3 mt-6">Viambatisho vya Ushahidi</h4>
+                <div class="mb-6">
+                    <label for="evidenceAttachments" class="block text-gray-700 text-sm font-semibold mb-2">Pakia Ushahidi (Picha/Video)</label>
+                    <input
+                        type="file"
+                        id="evidenceAttachments"
+                        name="evidenceAttachments"
+                        accept="image/*,video/*,.pdf"
+                        class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    />
+                </div>
+
+                <div class="flex justify-between space-x-4 mt-6">
+                    <button
+                        type="reset"
+                        class="w-1/2 bg-red-600 text-white py-3 rounded-md font-semibold hover:bg-red-700 transition duration-300 ease-in-out shadow-lg"
+                    >
+                        Ghairi
+                    </button>
+                    <button
+                        type="submit"
+                        class="w-1/2 bg-blue-700 text-white py-3 rounded-md font-semibold hover:bg-blue-800 transition duration-300 ease-in-out shadow-lg"
+                    >
+                        Sajili Kesi
+                    </button>
+                </div>
+            </form>
+        </div>
+    </main>
+
+<!-- Footer -->
+    <footer class="bg-blue-800 text-white p-4 mt-8">
+        <div class="container mx-auto flex justify-around items-center text-center">
+            <a href="../index.html" class="flex flex-col items-center p-2 rounded-md hover:bg-blue-700 transition duration-200">
+                <span class="text-2xl">🏠</span>
+                <span class="text-xs">Home</span>
+            </a>
+            <a href="../settings.html" class="flex flex-col items-center p-2 rounded-md hover:bg-blue-700 transition duration-200">
+                <span class="text-2xl">⚙️</span>
+                <span class="text-xs">Settings</span>
+            </a>
+            <a href="../profile.html" class="flex flex-col items-center p-2 rounded-md hover:bg-blue-700 transition duration-200">
+                <span class="text-2xl">👤</span>
+                <span class="text-xs">Profile</span>
+            </a>
+            <a href="info_and_payments.html" class="flex flex-col items-center p-2 rounded-md hover:bg-blue-700 transition duration-200">
+                <span class="text-2xl">❓</span>
+                <span class="text-xs">Help</span>
+            </a>
+        </div>
+    </footer>
+
+
+    <script>
+        // Function to update date and time
+        function updateDateTime() {
+            const now = new Date();
+            const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit', second: '2-digit' };
+            document.getElementById('currentDateTime').textContent = now.toLocaleDateString('sw-TZ', options);
+        }
+
+        // Update date and time every second
+        setInterval(updateDateTime, 1000);
+        // Initial call to display immediately
+        updateDateTime();
+
+        // You can set the username dynamically here after a real login
+        document.getElementById('userName').textContent = 'David'; // Example name
+
+        // Dynamic content for Kata based on Wilaya selection
+        const caseDistrictSelect = document.getElementById('caseDistrict');
+        const caseWardSelect = document.getElementById('caseWard');
+
+        if (caseDistrictSelect && caseWardSelect) {
+            caseDistrictSelect.addEventListener('change', function() {
+                const selectedDistrict = caseDistrictSelect.value;
+                caseWardSelect.innerHTML = '<option value="">-- Chagua Wilaya Kwanza --</option>'; // Reset wards
+
+                if (selectedDistrict === 'Ilala') {
+                    caseWardSelect.innerHTML += '<option value="Kivukoni">Kivukoni</option>';
+                    caseWardSelect.innerHTML += '<option value="Upanga Mashariki">Upanga Mashariki</option>';
+                    // Add more wards for Ilala
+                } else if (selectedDistrict === 'Kinondoni') {
+                    caseWardSelect.innerHTML += '<option value="Kinondoni">Kinondoni</option>';
+                    caseWardSelect.innerHTML += '<option value="Msasani">Msasani</option>';
+                }
+                // Add more conditions for other districts
+            });
+        }
+    </script>
+</body>
+</html>

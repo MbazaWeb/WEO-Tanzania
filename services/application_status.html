@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="sw">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WEO Portal - Hali ya Maombi</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Custom font for Inter */
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+    </style>
+</head>
+<body class="bg-gray-100 min-h-screen flex flex-col">
+    <!-- Header -->
+    <header class="bg-blue-700 text-white p-4 shadow-md">
+        <div class="container mx-auto flex justify-between items-center">
+            <h1 class="text-2xl font-bold">WEO Portal</h1>
+            <div class="text-right">
+                <p class="text-sm">Karibu, <span id="userName" class="font-semibold">Mtumiaji</span>!</p>
+                <p class="text-xs" id="currentDateTime"></p>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="flex-grow container mx-auto p-4">
+        <div class="bg-white p-8 rounded-lg shadow-xl w-full max-w-4xl mx-auto">
+            <h2 class="text-2xl font-bold text-gray-800 mb-6 text-center">Hali ya Maombi</h2>
+            <p class="text-gray-700 text-center mb-8">Fuatilia hali ya maombi yako yote yaliyowasilishwa hapa.</p>
+
+            <!-- Search Bar -->
+            <div class="mb-6">
+                <input
+                    type="text"
+                    id="applicationSearch"
+                    placeholder="Tafuta kwa namba ya maombi au jina la mwombaji..."
+                    class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                />
+            </div>
+
+            <!-- Application Table -->
+            <div class="overflow-x-auto">
+                <table class="min-w-full bg-white rounded-lg shadow-md">
+                    <thead>
+                        <tr class="bg-blue-100 text-blue-800 uppercase text-sm leading-normal">
+                            <th class="py-3 px-6 text-left">Namba ya Maombi</th>
+                            <th class="py-3 px-6 text-left">Aina ya Maombi</th>
+                            <th class="py-3 px-6 text-left">Jina la Mwombaji</th>
+                            <th class="py-3 px-6 text-center">Hali</th>
+                            <th class="py-3 px-6 text-left">Tarehe ya Kuwasilisha</th>
+                            <th class="py-3 px-6 text-center">Vitendo</th>
+                        </tr>
+                    </thead>
+                    <tbody id="applicationTableBody" class="text-gray-700 text-sm font-light">
+                        <!-- Sample Data - In a real app, this would be loaded dynamically -->
+                        <tr class="border-b border-gray-200 hover:bg-gray-100">
+                            <td class="py-3 px-6 text-left whitespace-nowrap">APP-001</td>
+                            <td class="py-3 px-6 text-left">Utambulisho Online</td>
+                            <td class="py-3 px-6 text-left">David Mbazza</td>
+                            <td class="py-3 px-6 text-center">
+                                <span class="bg-yellow-200 text-yellow-800 py-1 px-3 rounded-full text-xs">Inasubiri</span>
+                            </td>
+                            <td class="py-3 px-6 text-left">2024-07-01</td>
+                            <td class="py-3 px-6 text-center">
+                                <button class="bg-blue-500 text-white py-1 px-3 rounded-md text-xs hover:bg-blue-600 view-details-btn">Angalia</button>
+                                <button class="bg-green-500 text-white py-1 px-3 rounded-md text-xs hover:bg-green-600 edit-application-btn ml-2">Hariri</button>
+                                <button class="bg-purple-500 text-white py-1 px-3 rounded-md text-xs hover:bg-purple-600 pay-application-btn ml-2">Lipa</button>
+                            </td>
+                        </tr>
+                        <tr class="border-b border-gray-200 hover:bg-gray-100">
+                            <td class="py-3 px-6 text-left whitespace-nowrap">APP-002</td>
+                            <td class="py-3 px-6 text-left">Kibali cha Ujenzi</td>
+                            <td class="py-3 px-6 text-left">Amina Juma</td>
+                            <td class="py-3 px-6 text-center">
+                                <span class="bg-green-200 text-green-800 py-1 px-3 rounded-full text-xs">Imepitishwa</span>
+                            </td>
+                            <td class="py-3 px-6 text-left">2024-06-28</td>
+                            <td class="py-3 px-6 text-center">
+                                <button class="bg-blue-500 text-white py-1 px-3 rounded-md text-xs hover:bg-blue-600 view-details-btn">Angalia</button>
+                                <button class="bg-green-500 text-white py-1 px-3 rounded-md text-xs hover:bg-green-600 edit-application-btn ml-2">Hariri</button>
+                                <button class="bg-purple-500 text-white py-1 px-3 rounded-md text-xs hover:bg-purple-600 pay-application-btn ml-2">Lipa</button>
+                            </td>
+                        </tr>
+                        <tr class="border-b border-gray-200 hover:bg-gray-100">
+                            <td class="py-3 px-6 text-left whitespace-nowrap">APP-003</td>
+                            <td class="py-3 px-6 text-left">Toa Taarifa</td>
+                            <td class="py-3 px-6 text-left">Peter Kimani</td>
+                            <td class="py-3 px-6 text-center">
+                                <span class="bg-red-200 text-red-800 py-1 px-3 rounded-full text-xs">Imekataliwa</span>
+                            </td>
+                            <td class="py-3 px-6 text-left">2024-06-25</td>
+                            <td class="py-3 px-6 text-center">
+                                <button class="bg-blue-500 text-white py-1 px-3 rounded-md text-xs hover:bg-blue-600 view-details-btn">Angalia</button>
+                                <button class="bg-green-500 text-white py-1 px-3 rounded-md text-xs hover:bg-green-600 edit-application-btn ml-2">Hariri</button>
+                                <button class="bg-purple-500 text-white py-1 px-3 rounded-md text-xs hover:bg-purple-600 pay-application-btn ml-2">Lipa</button>
+                            </td>
+                        </tr>
+                        <tr class="border-b border-gray-200 hover:bg-gray-100">
+                            <td class="py-3 px-6 text-left whitespace-nowrap">APP-004</td>
+                            <td class="py-3 px-6 text-left">Sajili Malipo</td>
+                            <td class="py-3 px-6 text-left">Zawadi Mchunga</td>
+                            <td class="py-3 px-6 text-center">
+                                <span class="bg-gray-200 text-gray-800 py-1 px-3 rounded-full text-xs">Imekamilika</span>
+                            </td>
+                            <td class="py-3 px-6 text-left">2024-06-20</td>
+                            <td class="py-3 px-6 text-center">
+                                <button class="bg-blue-500 text-white py-1 px-3 rounded-md text-xs hover:bg-blue-600 view-details-btn">Angalia</button>
+                                <button class="bg-green-500 text-white py-1 px-3 rounded-md text-xs hover:bg-green-600 edit-application-btn ml-2">Hariri</button>
+                                <button class="bg-purple-500 text-white py-1 px-3 rounded-md text-xs hover:bg-purple-600 pay-application-btn ml-2">Lipa</button>
+                            </td>
+                        </tr>
+                        <!-- More rows can be added here -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </main>
+
+<!-- Footer -->
+    <footer class="bg-blue-800 text-white p-4 mt-8">
+        <div class="container mx-auto flex justify-around items-center text-center">
+            <a href="../index.html" class="flex flex-col items-center p-2 rounded-md hover:bg-blue-700 transition duration-200">
+                <span class="text-2xl">🏠</span>
+                <span class="text-xs">Home</span>
+            </a>
+            <a href="../settings.html" class="flex flex-col items-center p-2 rounded-md hover:bg-blue-700 transition duration-200">
+                <span class="text-2xl">⚙️</span>
+                <span class="text-xs">Settings</span>
+            </a>
+            <a href="../profile.html" class="flex flex-col items-center p-2 rounded-md hover:bg-blue-700 transition duration-200">
+                <span class="text-2xl">👤</span>
+                <span class="text-xs">Profile</span>
+            </a>
+            <a href="info_and_payments.html" class="flex flex-col items-center p-2 rounded-md hover:bg-blue-700 transition duration-200">
+                <span class="text-2xl">❓</span>
+                <span class="text-xs">Help</span>
+            </a>
+        </div>
+    </footer>
+
+
+
+    <script>
+        // Function to update date and time
+        function updateDateTime() {
+            const now = new Date();
+            const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit', second: '2-digit' };
+            document.getElementById('currentDateTime').textContent = now.toLocaleDateString('sw-TZ', options);
+        }
+
+        // Update date and time every second
+        setInterval(updateDateTime, 1000);
+        // Initial call to display immediately
+        updateDateTime();
+
+        // You can set the username dynamically here after a real login
+        document.getElementById('userName').textContent = 'David'; // Example name
+
+        // Search functionality for the table
+        document.getElementById('applicationSearch').addEventListener('keyup', function() {
+            const searchValue = this.value.toLowerCase();
+            const rows = document.querySelectorAll('#applicationTableBody tr');
+
+            rows.forEach(row => {
+                const appId = row.cells[0].textContent.toLowerCase();
+                const applicantName = row.cells[2].textContent.toLowerCase();
+
+                if (appId.includes(searchValue) || applicantName.includes(searchValue)) {
+                    row.style.display = '';
+                } else {
+                    row.style.display = 'none';
+                }
+            });
+        });
+
+        // Event listener for "Angalia", "Hariri", and "Lipa" buttons
+        document.getElementById('applicationTableBody').addEventListener('click', function(event) {
+            const target = event.target;
+            if (target.tagName === 'BUTTON') {
+                const row = target.closest('tr');
+                const appId = row.cells[0].textContent;
+
+                if (target.classList.contains('view-details-btn')) {
+                    // Action for "Angalia" button
+                    alert(`Angalia maelezo ya maombi: ${appId}`);
+                    // In a real application, you would redirect to a detailed view page
+                    // window.location.href = `application_details.html?id=${appId}`;
+                } else if (target.classList.contains('edit-application-btn')) {
+                    // Action for "Hariri" button
+                    alert(`Hariri maombi: ${appId}`);
+                    // In a real application, you would redirect to an edit form page
+                    // window.location.href = `edit_application.html?id=${appId}`;
+                } else if (target.classList.contains('pay-application-btn')) {
+                    // Action for "Lipa" button
+                    alert(`Endelea kulipa maombi: ${appId}`);
+                    // In a real application, you would redirect to a payment page or open a payment modal
+                    // window.location.href = `payment_page.html?id=${appId}`;
+                }
+            }
+        });
+    </script>
+</body>
+</html>

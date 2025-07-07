@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="sw">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WEO Portal - Vibali Online</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Custom font for Inter */
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        .permit-card {
+            background-color: #ffffff;
+            padding: 1.5rem;
+            border-radius: 0.75rem; /* rounded-lg */
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06); /* shadow-md */
+            transition: transform 0.2s ease-in-out;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            cursor: pointer;
+        }
+        .permit-card:hover {
+            transform: translateY(-5px);
+        }
+        .permit-icon {
+            width: 3rem; /* h-12 w-12 */
+            height: 3rem;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #eff6ff; /* blue-50 */
+            border-radius: 9999px; /* rounded-full */
+            color: #2563eb; /* blue-600 */
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body class="bg-gray-100 min-h-screen flex flex-col">
+    <!-- Header -->
+    <header class="bg-blue-700 text-white p-4 shadow-md">
+        <div class="container mx-auto flex justify-between items-center">
+            <h1 class="text-2xl font-bold">WEO Portal</h1>
+            <div class="text-right">
+                <p class="text-sm">Karibu, <span id="userName" class="font-semibold">Mtumiaji</span>!</p>
+                <p class="text-xs" id="currentDateTime"></p>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="flex-grow container mx-auto p-4">
+        <div class="bg-white p-8 rounded-lg shadow-xl w-full max-w-4xl mx-auto">
+            <h2 class="text-2xl font-bold text-gray-800 mb-6 text-center">Vibali Online</h2>
+            <p class="text-gray-700 text-center mb-8">Chagua aina ya kibali unachohitaji kuomba.</p>
+
+            <!-- Permit Type Selection -->
+            <div id="permitSelection" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-10">
+                <div class="permit-card" data-permit-type="ujenzi">
+                    <div class="permit-icon">🏗️</div>
+                    <h3 class="text-lg font-semibold text-gray-800">Kibali cha Ujenzi</h3>
+                </div>
+                <div class="permit-card" data-permit-type="mazishi">
+                    <div class="permit-icon">⚰️</div>
+                    <h3 class="text-lg font-semibold text-gray-800">Kibali cha Mazishi</h3>
+                </div>
+                <div class="permit-card" data-permit-type="sherehe">
+                    <div class="permit-icon">🎉</div>
+                    <h3 class="text-lg font-semibold text-gray-800">Kibali cha Sherehe</h3>
+                </div>
+                <div class="permit-card" data-permit-type="mikutano">
+                    <div class="permit-icon">🗣️</div>
+                    <h3 class="text-lg font-semibold text-gray-800">Kibali cha Mikutano</h3>
+                </div>
+            </div>
+
+            <!-- Permit Forms Container -->
+            <div id="permitFormsContainer">
+                <!-- Kibali cha Ujenzi Form -->
+                <div id="ujenziForm" class="hidden bg-gray-50 p-6 rounded-lg shadow-inner mb-8">
+                    <h3 class="text-xl font-bold text-gray-800 mb-4 text-center">Ombi la Kibali cha Ujenzi</h3>
+                    <form>
+                        <!-- Taarifa za Mwombaji -->
+                        <h4 class="text-lg font-semibold text-gray-700 mb-3 mt-6">Taarifa za Mwombaji</h4>
+                        <div class="mb-4">
+                            <label for="ujenziFullName" class="block text-gray-700 text-sm font-semibold mb-2">Jina Kamili*</label>
+                            <input type="text" id="ujenziFullName" name="fullName" class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Ingiza jina lako kamili" required />
+                        </div>
+                        <div class="mb-4">
+                            <label for="ujenziContactNumber" class="block text-gray-700 text-sm font-semibold mb-2">Namba ya Simu*</label>
+                            <input type="tel" id="ujenziContactNumber" name="contactNumber" class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Mfano: +2557XXXXXXXX" required />
+                        </div>
+                        <div class="mb-6">
+                            <label for="ujenziApplicantAddress" class="block text-gray-700 text-sm font-semibold mb-2">Anuani ya Mwombaji</label>
+                            <textarea id="ujenziApplicantAddress" name="applicantAddress" rows="2" class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Ingiza anuani kamili"></textarea>
+                        </div>
+                        <div class="mb-4">
+                            <label for="ujenziDistrict" class="block text-gray-700 text-sm font-semibold mb-2">Wilaya*</label>
+                            <select id="ujenziDistrict" name="district" class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" required>
+                                <option value="">-- Chagua Wilaya --</option>
+                                <option value="Ilala">Ilala</option>
+                                <option value="Kinondoni">Kinondoni</option>
+                                <option value="Temeke">Temeke</option>
+                                <option value="Kigamboni">Kigamboni</option>
+                                <option value="Ubungo">Ubungo</option>
+                            </select>
+                        </div>
+                        <div class="mb-4">
+                            <label for="ujenziWard" class="block text-gray-700 text-sm font-semibold mb-2">Kata*</label>
+                            <select id="ujenziWard" name="ward" class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" required>
+                                <option value="">-- Chagua Wilaya Kwanza --</option>
+                            </select>
+                        </div>
+                        <div class="mb-6">
+                            <label for="ujenziStreet" class="block text-gray-700 text-sm font-semibold mb-2">Mtaa*</label>
+                            <input type="text" id="ujenziStreet" name="street" class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Ingiza jina la mtaa" required />
+                        </div>
+
+                        <!-- Aina ya Kibali kwa Undani -->
+                        <h4 class="text-lg font-semibold text-gray-700 mb-3 mt-6">Aina ya Kibali kwa Undani*</h4>
+                        <div class="mb-4">
+                            <select id="ujenziDetailedPermitType" name="detailedPermitType" class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" required>
+                                <option value="">-- Chagua kwa undani --</option>
+                                <option value="nyumba_mpya">Ujenzi wa Nyumba Mpya</option>
+                                <option value="ongezeko">Ongezeko la Jengo</option>
+                                <option value="ukarabati">Ukarabati Mkubwa</option>
+                                <option value="vinginevyo">Vinginevyo</option>
+                            </select>
+                        </div>
+                        <div class="mb-6">
+                            <label for="ujenziFee" class="block text-gray-700 text-sm font-semibold mb-2">Ada (TSh)</label>
+                            <input type="text" id="ujenziFee" name="fee" class="w-full px-4 py-2 border border-gray-300 rounded-md bg-gray-100 focus:outline-none" value="50,000" readonly />
+                        </div>
+
+                        <div class="flex justify-between space-x-4">
+                            <button type="reset" class="w-1/2 bg-red-600 text-white py-3 rounded-md font-semibold hover:bg-red-700 transition duration-300 ease-in-out shadow-lg">Futa</button>
+                            <button type="submit" class="w-1/2 bg-blue-700 text-white py-3 rounded-md font-semibold hover:bg-blue-800 transition duration-300 ease-in-out shadow-lg">Wasilisha Ombi</button>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- Kibali cha Mazishi Form -->
+                <div id="mazishiForm" class="hidden bg-gray-50 p-6 rounded-lg shadow-inner mb-8">
+                    <h3 class="text-xl font-bold text-gray-800 mb-4 text-center">Ombi la Kibali cha Mazishi</h3>
+                    <form>
+                        <!-- Taarifa za Mwombaji -->
+                        <h4 class="text-lg font-semibold text-gray-700 mb-3 mt-6">Taarifa za Mwombaji</h4>
+                        <div class="mb-4">
+                            <label for="mazishiFullName" class="block text-gray-700 text-sm font-semibold mb-2">Jina Kamili*</label>
+                            <input type="text" id="mazishiFullName" name="fullName" class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Ingiza jina lako kamili" required />
+                        </div>
+                        <div class="mb-4">
+                            <label for="mazishiContactNumber" class="block text-gray-700 text-sm font-semibold mb-2">Namba ya Simu*</label>
+                            <input type="tel" id="mazishiContactNumber" name="contactNumber" class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Mfano: +2557XXXXXXXX" required />
+                        </div>
+                        <div class="mb-6">
+                            <label for="mazishiApplicantAddress" class="block text-gray-700 text-sm font-semibold mb-2">Anuani ya Mwombaji</label>
+                            <textarea id="mazishiApplicantAddress" name="applicantAddress" rows="2" class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Ingiza anuani kamili"></textarea>
+                        </div>
+                        <div class="mb-4">
+                            <label for="mazishiDistrict" class="block text-gray-700 text-sm font-semibold mb-2">Wilaya*</label>
+                            <select id="mazishiDistrict" name="district" class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" required>
+                                <option value="">-- Chagua Wilaya --</option>
+                                <option value="Ilala">Ilala</option>
+                                <option value="Kinondoni">Kinondoni</option>
+                                <option value="Temeke">Temeke</option>
+                                <option value="Kigamboni">Kigamboni</option>
+                                <option value="Ubungo">Ubungo</option>
+                            </select>
+                        </div>
+                        <div class="mb-4">
+                            <label for="mazishiWard" class="block text-gray-700 text-sm font-semibold mb-2">Kata*</label>
+                            <select id="mazishiWard" name="ward" class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" required>
+                                <option value="">-- Chagua Wilaya Kwanza --</option>
+                            </select>
+                        </div>
+                        <div class="mb-6">
+                            <label for="mazishiStreet" class="block text-gray-700 text-sm font-semibold mb-2">Mtaa*</label>
+                            <input type="text" id="mazishiStreet" name="street" class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Ingiza jina la mtaa" required />
+                        </div>
+
+                        <!-- Aina ya Kibali kwa Undani -->
+                        <h4 class="text-lg font-semibold text-gray-700 mb-3 mt-6">Aina ya Kibali kwa Undani*</h4>
+                        <div class="mb-4">
+                            <select id="mazishiDetailedPermitType" name="detailedPermitType" class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" required>
+                                <option value="">-- Chagua kwa undani --</option>
+                                <option value="ndani_ya_wilaya">Mazishi Ndani ya Wilaya</option>
+                                <option value="nje_ya_wilaya">Mazishi Nje ya Wilaya</option>
+                            </select>
+                        </div>
+                        <div class="mb-6">
+                            <label for="mazishiFee" class="block text-gray-700 text-sm font-semibold mb-2">Ada (TSh)</label>
+                            <input type="text" id="mazishiFee" name="fee" class="w-full px-4 py-2 border border-gray-300 rounded-md bg-gray-100 focus:outline-none" value="10,000" readonly />
+                        </div>
+
+                        <div class="flex justify-between space-x-4">
+                            <button type="reset" class="w-1/2 bg-red-600 text-white py-3 rounded-md font-semibold hover:bg-red-700 transition duration-300 ease-in-out shadow-lg">Futa</button>
+                            <button type="submit" class="w-1/2 bg-blue-700 text-white py-3 rounded-md font-semibold hover:bg-blue-800 transition duration-300 ease-in-out shadow-lg">Wasilisha Ombi</button>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- Kibali cha Sherehe Form -->
+                <div id="shereheForm" class="hidden bg-gray-50 p-6 rounded-lg shadow-inner mb-8">
+                    <h3 class="text-xl font-bold text-gray-800 mb-4 text-center">Ombi la Kibali cha Sherehe</h3>
+                    <form>
+                        <!-- Taarifa za Mwombaji -->
+                        <h4 class="text-lg font-semibold text-gray-700 mb-3 mt-6">Taarifa za Mwombaji</h4>
+                        <div class="mb-4">
+                            <label for="shereheFullName" class="block text-gray-700 text-sm font-semibold mb-2">Jina Kamili*</label>
+                            <input type="text" id="shereheFullName" name="fullName" class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Ingiza jina lako kamili" required />
+                        </div>
+                        <div class="mb-4">
+                            <label for="shereheContactNumber" class="block text-gray-700 text-sm font-semibold mb-2">Namba ya Simu*</label>
+                            <input type="tel" id="shereheContactNumber" name="contactNumber" class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Mfano: +2557XXXXXXXX" required />
+                        </div>
+                        <div class="mb-6">
+                            <label for="shereheApplicantAddress" class="block text-gray-700 text-sm font-semibold mb-2">Anuani ya Mwombaji</label>
+                            <textarea id="shereheApplicantAddress" name="applicantAddress" rows="2" class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Ingiza anuani kamili"></textarea>
+                        </div>
+                        <div class="mb-4">
+                            <label for="shereheDistrict" class="block text-gray-700 text-sm font-semibold mb-2">Wilaya*</label>
+                            <select id="shereheDistrict" name="district" class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" required>
+                                <option value="">-- Chagua Wilaya --</option>
+                                <option value="Ilala">Ilala</option>
+                                <option value="Kinondoni">Kinondoni</option>
+                                <option value="Temeke">Temeke</option>
+                                <option value="Kigamboni">Kigamboni</option>
+                                <option value="Ubungo">Ubungo</option>
+                            </select>
+                        </div>
+                        <div class="mb-4">
+                            <label for="shereheWard" class="block text-gray-700 text-sm font-semibold mb-2">Kata*</label>
+                            <select id="shereheWard" name="ward" class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" required>
+                                <option value="">-- Chagua Wilaya Kwanza --</option>
+                            </select>
+                        </div>
+                        <div class="mb-6">
+                            <label for="shereheStreet" class="block text-gray-700 text-sm font-semibold mb-2">Mtaa*</label>
+                            <input type="text" id="shereheStreet" name="street" class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Ingiza jina la mtaa" required />
+                        </div>
+
+                        <!-- Aina ya Kibali kwa Undani -->
+                        <h4 class="text-lg font-semibold text-gray-700 mb-3 mt-6">Aina ya Kibali kwa Undani*</h4>
+                        <div class="mb-4">
+                            <select id="shereheDetailedPermitType" name="detailedPermitType" class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" required>
+                                <option value="">-- Chagua kwa undani --</option>
+                                <option value="harusi">Harusi</option>
+                                <option value="sendoff">Send Off</option>
+                                <option value="betha">Betha</option>
+                                <option value="vinginevyo">Vinginevyo</option>
+                            </select>
+                        </div>
+                        <div class="mb-6">
+                            <label for="shereheFee" class="block text-gray-700 text-sm font-semibold mb-2">Ada (TSh)</label>
+                            <input type="text" id="shereheFee" name="fee" class="w-full px-4 py-2 border border-gray-300 rounded-md bg-gray-100 focus:outline-none" value="20,000" readonly />
+                        </div>
+
+                        <div class="flex justify-between space-x-4">
+                            <button type="reset" class="w-1/2 bg-red-600 text-white py-3 rounded-md font-semibold hover:bg-red-700 transition duration-300 ease-in-out shadow-lg">Futa</button>
+                            <button type="submit" class="w-1/2 bg-blue-700 text-white py-3 rounded-md font-semibold hover:bg-blue-800 transition duration-300 ease-in-out shadow-lg">Wasilisha Ombi</button>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- Kibali cha Mikutano Form -->
+                <div id="mikutanoForm" class="hidden bg-gray-50 p-6 rounded-lg shadow-inner mb-8">
+                    <h3 class="text-xl font-bold text-gray-800 mb-4 text-center">Ombi la Kibali cha Mikutano</h3>
+                    <form>
+                        <!-- Taarifa za Mwombaji -->
+                        <h4 class="text-lg font-semibold text-gray-700 mb-3 mt-6">Taarifa za Mwombaji</h4>
+                        <div class="mb-4">
+                            <label for="mikutanoFullName" class="block text-gray-700 text-sm font-semibold mb-2">Jina Kamili*</label>
+                            <input type="text" id="mikutanoFullName" name="fullName" class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Ingiza jina lako kamili" required />
+                        </div>
+                        <div class="mb-4">
+                            <label for="mikutanoContactNumber" class="block text-gray-700 text-sm font-semibold mb-2">Namba ya Simu*</label>
+                            <input type="tel" id="mikutanoContactNumber" name="contactNumber" class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Mfano: +2557XXXXXXXX" required />
+                        </div>
+                        <div class="mb-6">
+                            <label for="mikutanoApplicantAddress" class="block text-gray-700 text-sm font-semibold mb-2">Anuani ya Mwombaji</label>
+                            <textarea id="mikutanoApplicantAddress" name="applicantAddress" rows="2" class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Ingiza anuani kamili"></textarea>
+                        </div>
+                        <div class="mb-4">
+                            <label for="mikutanoDistrict" class="block text-gray-700 text-sm font-semibold mb-2">Wilaya*</label>
+                            <select id="mikutanoDistrict" name="district" class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" required>
+                                <option value="">-- Chagua Wilaya --</option>
+                                <option value="Ilala">Ilala</option>
+                                <option value="Kinondoni">Kinondoni</option>
+                                <option value="Temeke">Temeke</option>
+                                <option value="Kigamboni">Kigamboni</option>
+                                <option value="Ubungo">Ubungo</option>
+                            </select>
+                        </div>
+                        <div class="mb-4">
+                            <label for="mikutanoWard" class="block text-gray-700 text-sm font-semibold mb-2">Kata*</label>
+                            <select id="mikutanoWard" name="ward" class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" required>
+                                <option value="">-- Chagua Wilaya Kwanza --</option>
+                            </select>
+                        </div>
+                        <div class="mb-6">
+                            <label for="mikutanoStreet" class="block text-gray-700 text-sm font-semibold mb-2">Mtaa*</label>
+                            <input type="text" id="mikutanoStreet" name="street" class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Ingiza jina la mtaa" required />
+                        </div>
+
+                        <!-- Aina ya Kibali kwa Undani -->
+                        <h4 class="text-lg font-semibold text-gray-700 mb-3 mt-6">Aina ya Kibali kwa Undani*</h4>
+                        <div class="mb-4">
+                            <select id="mikutanoDetailedPermitType" name="detailedPermitType" class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" required>
+                                <option value="">-- Chagua kwa undani --</option>
+                                <option value="kisiasa">Mkutano wa Kisiasa</option>
+                                <option value="kidini">Mkutano wa Kidini</option>
+                                <option value="kielimu">Mkutano wa Kielimu</option>
+                                <option value="vinginevyo">Vinginevyo</option>
+                            </select>
+                        </div>
+                        <div class="mb-6">
+                            <label for="mikutanoFee" class="block text-gray-700 text-sm font-semibold mb-2">Ada (TSh)</label>
+                            <input type="text" id="mikutanoFee" name="fee" class="w-full px-4 py-2 border border-gray-300 rounded-md bg-gray-100 focus:outline-none" value="30,000" readonly />
+                        </div>
+
+                        <div class="flex justify-between space-x-4">
+                            <button type="reset" class="w-1/2 bg-red-600 text-white py-3 rounded-md font-semibold hover:bg-red-700 transition duration-300 ease-in-out shadow-lg">Futa</button>
+                            <button type="submit" class="w-1/2 bg-blue-700 text-white py-3 rounded-md font-semibold hover:bg-blue-800 transition duration-300 ease-in-out shadow-lg">Wasilisha Ombi</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </main>
+
+<!-- Footer -->
+    <footer class="bg-blue-800 text-white p-4 mt-8">
+        <div class="container mx-auto flex justify-around items-center text-center">
+            <a href="../index.html" class="flex flex-col items-center p-2 rounded-md hover:bg-blue-700 transition duration-200">
+                <span class="text-2xl">🏠</span>
+                <span class="text-xs">Home</span>
+            </a>
+            <a href="../settings.html" class="flex flex-col items-center p-2 rounded-md hover:bg-blue-700 transition duration-200">
+                <span class="text-2xl">⚙️</span>
+                <span class="text-xs">Settings</span>
+            </a>
+            <a href="../profile.html" class="flex flex-col items-center p-2 rounded-md hover:bg-blue-700 transition duration-200">
+                <span class="text-2xl">👤</span>
+                <span class="text-xs">Profile</span>
+            </a>
+            <a href="info_and_payments.html" class="flex flex-col items-center p-2 rounded-md hover:bg-blue-700 transition duration-200">
+                <span class="text-2xl">❓</span>
+                <span class="text-xs">Help</span>
+            </a>
+        </div>
+    </footer>
+
+
+
+    <script>
+        // Function to update date and time
+        function updateDateTime() {
+            const now = new Date();
+            const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit', second: '2-digit' };
+            document.getElementById('currentDateTime').textContent = now.toLocaleDateString('sw-TZ', options);
+        }
+
+        // Update date and time every second
+        setInterval(updateDateTime, 1000);
+        // Initial call to display immediately
+        updateDateTime();
+
+        // You can set the username dynamically here after a real login
+        document.getElementById('userName').textContent = 'David'; // Example name
+
+        // Handle permit type selection
+        const permitCards = document.querySelectorAll('#permitSelection .permit-card');
+        const permitForms = document.querySelectorAll('#permitFormsContainer > div');
+
+        permitCards.forEach(card => {
+            card.addEventListener('click', function() {
+                const selectedPermitType = this.dataset.permitType;
+
+                // Hide all forms
+                permitForms.forEach(form => {
+                    form.classList.add('hidden');
+                });
+
+                // Show the selected form
+                document.getElementById(`${selectedPermitType}Form`).classList.remove('hidden');
+
+                // Scroll to the form
+                document.getElementById(`${selectedPermitType}Form`).scrollIntoView({ behavior: 'smooth' });
+            });
+        });
+
+        // Dynamic content for Kata based on Wilaya selection for Ujenzi form
+        const ujenziDistrictSelect = document.getElementById('ujenziDistrict');
+        const ujenziWardSelect = document.getElementById('ujenziWard');
+        if (ujenziDistrictSelect && ujenziWardSelect) {
+            ujenziDistrictSelect.addEventListener('change', function() {
+                const selectedDistrict = ujenziDistrictSelect.value;
+                ujenziWardSelect.innerHTML = '<option value="">-- Chagua Wilaya Kwanza --</option>';
+                if (selectedDistrict === 'Ilala') {
+                    ujenziWardSelect.innerHTML += '<option value="Kivukoni">Kivukoni</option>';
+                    ujenziWardSelect.innerHTML += '<option value="Upanga Mashariki">Upanga Mashariki</option>';
+                } else if (selectedDistrict === 'Kinondoni') {
+                    ujenziWardSelect.innerHTML += '<option value="Kinondoni">Kinondoni</option>';
+                    ujenziWardSelect.innerHTML += '<option value="Msasani">Msasani</option>';
+                }
+            });
+        }
+
+        // Dynamic content for Kata based on Wilaya selection for Mazishi form
+        const mazishiDistrictSelect = document.getElementById('mazishiDistrict');
+        const mazishiWardSelect = document.getElementById('mazishiWard');
+        if (mazishiDistrictSelect && mazishiWardSelect) {
+            mazishiDistrictSelect.addEventListener('change', function() {
+                const selectedDistrict = mazishiDistrictSelect.value;
+                mazishiWardSelect.innerHTML = '<option value="">-- Chagua Wilaya Kwanza --</option>';
+                if (selectedDistrict === 'Ilala') {
+                    mazishiWardSelect.innerHTML += '<option value="Kivukoni">Kivukoni</option>';
+                    mazishiWardSelect.innerHTML += '<option value="Upanga Mashariki">Upanga Mashariki</option>';
+                } else if (selectedDistrict === 'Kinondoni') {
+                    mazishiWardSelect.innerHTML += '<option value="Kinondoni">Kinondoni</option>';
+                    mazishiWardSelect.innerHTML += '<option value="Msasani">Msasani</option>';
+                }
+            });
+        }
+
+        // Dynamic content for Kata based on Wilaya selection for Sherehe form
+        const shereheDistrictSelect = document.getElementById('shereheDistrict');
+        const shereheWardSelect = document.getElementById('shereheWard');
+        if (shereheDistrictSelect && shereheWardSelect) {
+            shereheDistrictSelect.addEventListener('change', function() {
+                const selectedDistrict = shereheDistrictSelect.value;
+                shereheWardSelect.innerHTML = '<option value="">-- Chagua Wilaya Kwanza --</option>';
+                if (selectedDistrict === 'Ilala') {
+                    shereheWardSelect.innerHTML += '<option value="Kivukoni">Kivukoni</option>';
+                    shereheWardSelect.innerHTML += '<option value="Upanga Mashariki">Upanga Mashariki</option>';
+                } else if (selectedDistrict === 'Kinondoni') {
+                    shereheWardSelect.innerHTML += '<option value="Kinondoni">Kinondoni</option>';
+                    shereheWardSelect.innerHTML += '<option value="Msasani">Msasani</option>';
+                }
+            });
+        }
+
+        // Dynamic content for Kata based on Wilaya selection for Mikutano form
+        const mikutanoDistrictSelect = document.getElementById('mikutanoDistrict');
+        const mikutanoWardSelect = document.getElementById('mikutanoWard');
+        if (mikutanoDistrictSelect && mikutanoWardSelect) {
+            mikutanoDistrictSelect.addEventListener('change', function() {
+                const selectedDistrict = mikutanoDistrictSelect.value;
+                mikutanoWardSelect.innerHTML = '<option value="">-- Chagua Wilaya Kwanza --</option>';
+                if (selectedDistrict === 'Ilala') {
+                    mikutanoWardSelect.innerHTML += '<option value="Kivukoni">Kivukoni</option>';
+                    mikutanoWardSelect.innerHTML += '<option value="Upanga Mashariki">Upanga Mashariki</option>';
+                } else if (selectedDistrict === 'Kinondoni') {
+                    mikutanoWardSelect.innerHTML += '<option value="Kinondoni">Kinondoni</option>';
+                    mikutanoWardSelect.innerHTML += '<option value="Msasani">Msasani</option>';
+                }
+            });
+        }
+    </script>
+</body>
+</html>

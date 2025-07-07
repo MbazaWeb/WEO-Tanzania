@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WEO Portal - Home</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Custom font for Inter */
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        /* Custom styles for service cards */
+        .service-card {
+            background-color: #ffffff;
+            padding: 1.5rem;
+            border-radius: 0.75rem; /* rounded-lg */
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06); /* shadow-md */
+            transition: transform 0.2s ease-in-out;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+        .service-card:hover {
+            transform: translateY(-5px);
+        }
+        .service-icon {
+            width: 3rem; /* h-12 w-12 */
+            height: 3rem;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #eff6ff; /* blue-50 */
+            border-radius: 9999px; /* rounded-full */
+            color: #2563eb; /* blue-600 */
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body class="bg-gray-100 min-h-screen flex flex-col">
+    <!-- Header -->
+    <header class="bg-blue-700 text-white p-4 shadow-md">
+        <div class="container mx-auto flex justify-between items-center">
+            <h1 class="text-2xl font-bold">WEO Portal</h1>
+            <div class="text-right">
+                <p class="text-sm">Welcome, <span id="userName" class="font-semibold">User</span>!</p>
+                <p class="text-xs" id="currentDateTime"></p>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="flex-grow container mx-auto p-4">
+        <h2 class="text-2xl font-bold text-gray-800 mb-6 text-center">Our Services</h2>
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            <!-- Service Card 1 -->
+            <a href="services/identification_request.html" class="service-card">
+                <div class="service-icon">📝</div>
+                <h3 class="text-lg font-semibold text-gray-800">Online Identification</h3>
+                <p class="text-sm text-gray-600">Apply for and manage your identification documents online.</p>
+            </a>
+            <!-- Service Card 2 -->
+            <a href="services/residential_registration.html" class="service-card">
+                <div class="service-icon">🏠</div>
+                <h3 class="text-lg font-semibold text-gray-800">Residential Self-Registration</h3>
+                <p class="text-sm text-gray-600">Register your residence and update your housing information.</p>
+            </a>
+            <!-- Service Card 3 -->
+            <a href="services/report_information.html" class="service-card">
+                <div class="service-icon">📊</div>
+                <h3 class="text-lg font-semibold text-gray-800">Provide Information</h3>
+                <p class="text-sm text-gray-600">Submit various types of information and reports.</p>
+            </a>
+            <!-- Service Card 4 -->
+            <a href="services/permits.html" class="service-card">
+                <div class="service-icon">✅</div>
+                <h3 class="text-lg font-semibold text-gray-800">Online Permits</h3>
+                <p class="text-sm text-gray-600">Apply for and manage permits and licenses online.</p>
+            </a>
+            <!-- Service Card 5 -->
+            <a href="services/payments_contributions.html" class="service-card">
+                <div class="service-icon">💰</div>
+                <h3 class="text-lg font-semibold text-gray-800">Register Payments/Contributions</h3>
+                <p class="text-sm text-gray-600">Record and track your payments and contributions.</p>
+            </a>
+            <!-- Service Card 6 -->
+            <a href="services/case_management.html" class="service-card">
+                <div class="service-icon">⚖️</div>
+                <h3 class="text-lg font-semibold text-gray-800">Case Management</h3>
+                <p class="text-sm text-gray-600">Manage and track the progress of your cases.</p>
+            </a>
+            <!-- Service Card 7 -->
+            <a href="services/application_status.html" class="service-card">
+                <div class="service-icon">🔍</div>
+                <h3 class="text-lg font-semibold text-gray-800">Track Information</h3>
+                <p class="text-sm text-gray-600">Monitor and track various pieces of information.</p>
+            </a>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-blue-800 text-white p-4 mt-8">
+        <div class="container mx-auto flex justify-around items-center text-center">
+            <a href="index.html" class="flex flex-col items-center p-2 rounded-md hover:bg-blue-700 transition duration-200">
+                <span class="text-2xl">🏠</span>
+                <span class="text-xs">Home</span>
+            </a>
+            <a href="settings.html" class="flex flex-col items-center p-2 rounded-md hover:bg-blue-700 transition duration-200">
+                <span class="text-2xl">⚙️</span>
+                <span class="text-xs">Settings</span>
+            </a>
+            <a href="profile.html" class="flex flex-col items-center p-2 rounded-md hover:bg-blue-700 transition duration-200">
+                <span class="text-2xl">👤</span>
+                <span class="text-xs">Profile</span>
+            </a>
+            <a href="info_and_payments.html" class="flex flex-col items-center p-2 rounded-md hover:bg-blue-700 transition duration-200">
+                <span class="text-2xl">❓</span>
+                <span class="text-xs">Help</span>
+            </a>
+        </div>
+    </footer>
+
+    <script>
+        // Function to update date and time
+        function updateDateTime() {
+            const now = new Date();
+            const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit', second: '2-digit' };
+            document.getElementById('currentDateTime').textContent = now.toLocaleDateString('en-US', options);
+        }
+
+        // Update date and time every second
+        setInterval(updateDateTime, 1000);
+        // Initial call to display immediately
+        updateDateTime();
+
+        // You can set the username dynamically here after a real login
+        // For demonstration, it's 'User'. In a real app, you'd get this from session/auth.
+        document.getElementById('userName').textContent = 'David'; // Example name
+    </script>
+</body>
+</html>
