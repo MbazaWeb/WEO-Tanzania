@@ -46,15 +46,16 @@
         // Check if the user is logged in
         if (sessionStorage.getItem('isLoggedIn') !== 'true') {
             // If not logged in, redirect to the login page
-            window.location.href = 'login.html';
+            window.location.href = 'login.html'; // Assuming login.html is in the same directory
         }
     </script>
     <header class="bg-blue-700 text-white p-4 shadow-md">
         <div class="container mx-auto flex justify-between items-center">
             <h1 class="text-2xl font-bold">WEO Portal</h1>
-            <div class="text-right">
+            <div class="text-right flex items-center space-x-4">
                 <p class="text-sm">Welcome, <span id="userName" class="font-semibold">User</span>!</p>
                 <p class="text-xs" id="currentDateTime"></p>
+                <button id="logoutButton" class="bg-blue-600 hover:bg-blue-700 text-white text-xs px-3 py-1 rounded-md">Logout</button>
             </div>
         </div>
     </header>
@@ -82,7 +83,7 @@
                 <h3 class="text-lg font-semibold text-gray-800">Online Permits</h3>
                 <p class="text-sm text-gray-600">Apply for and manage permits and licenses online.</p>
             </a>
-            <a href="services/permits.html" class="service-card">
+            <a href="services/Sajili MalipoMchango.html" class="service-card">
                 <div class="service-icon">💰</div>
                 <h3 class="text-lg font-semibold text-gray-800">Register Payments/Contributions</h3>
                 <p class="text-sm text-gray-600">Record and track your payments and contributions.</p>
@@ -136,8 +137,15 @@
 
         // You can set the username dynamically here after a real login
         // For demonstration, it's 'User'. In a real app, you'd get this from session/auth.
-        const loggedInUser = sessionStorage.getItem('loggedInUser');
+        const loggedInUser = sessionStorage.getItem('loggedInUser'); //
         document.getElementById('userName').textContent = loggedInUser ? loggedInUser : 'User'; // Example name
+
+        // Logout button functionality
+        document.getElementById('logoutButton').addEventListener('click', function() {
+            sessionStorage.removeItem('isLoggedIn'); // Clear the login flag
+            sessionStorage.removeItem('loggedInUser'); // Clear the username
+            window.location.href = 'login.html'; // Redirect to login page
+        });
     </script>
 </body>
 </html>
